@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {
+  getPropertiesRequest
+} from './actions/properties';
+
+export class App extends React.Component {
+  render() {
+    const { properties } = this.props;
+    console.log('>>>>>>>>>', properties); 
+    return (
+      <div>
+        App
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = store => ({
+  properties: store.propertiesState,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getPropertiesRequest }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
