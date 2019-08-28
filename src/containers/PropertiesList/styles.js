@@ -27,12 +27,6 @@ export const TitleWrapper = styled.div`
   margin-bottom: ${Spaces.double};
 `;
 
-export const PropertyInfosList = styled.ul`
-  > li {
-    margin-bottom: ${Spaces.base};
-  }
-`;
-
 export const ButtonHolder = styled.div`
   align-items: center;
   display: flex;

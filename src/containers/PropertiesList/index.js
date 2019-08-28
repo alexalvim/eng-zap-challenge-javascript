@@ -1,18 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  FaBed,
-  FaShower,
-  FaCar,
-  FaRuler,
-  FaBuilding
-} from "react-icons/fa";
 
 import Header from '../../components/Header';
 import TextButton from '../../components/TextButton';
 import CarouselBox from '../../components/CarouselBox';
-import IconItem from '../../components/IconItem';
+import PropertyInfoList from '../../components/PropertyInfoList'
 import { PORTALS } from '../../variables';
 import {
   getPropertiesRequest,
@@ -25,7 +18,6 @@ import {
   Title,
   TitleWrapper,
   PropertiesCardsList,
-  PropertyInfosList,
   ButtonHolder
 } from './styles';
 
@@ -76,39 +68,9 @@ export class PropertiesList extends React.Component {
                   title={`Imóvel para ${property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}`}
                   activePortal={properties.activePortal}
                   images={property.images}>
-                  <PropertyInfosList>
-                    <li>
-                      <IconItem
-                        activePortal={properties.activePortal}
-                        Icon={FaBed}
-                        label={`${property.bedrooms} Quartos`}/>
-                    </li>
-                    <li>
-                      <IconItem
-                        activePortal={properties.activePortal}
-                        Icon={FaShower}
-                        label={`${property.bathrooms} Banheiros`}/>
-                    </li>
-                    <li>
-                      <IconItem
-                        activePortal={properties.activePortal}
-                        Icon={FaCar}
-                        label={`${property.parkingSpaces} Vagas`}/>
-                    </li>
-                    <li>
-                      <IconItem
-                        activePortal={properties.activePortal}
-                        Icon={FaRuler}
-                        label={`Área útil: ${property.usableAreas} m²`}/>
-                    </li>
-                    {property.address.neighborhood &&
-                      <li>
-                        <IconItem
-                          activePortal={properties.activePortal}
-                          Icon={FaBuilding}
-                          label={property.address.neighborhood}/>
-                      </li>}
-                  </PropertyInfosList>
+                  <PropertyInfoList
+                    property={property}
+                    activePortal={properties.activePortal}/>
                 </CarouselBox>
               </li>
             )}
