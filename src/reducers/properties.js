@@ -1,7 +1,8 @@
 import {
   GET_PROPERTIES_REQUEST,
   GET_PROPERTIES_SUCCESS,
-  GET_PROPERTIES_FAILURE
+  GET_PROPERTIES_FAILURE,
+  CHANGE_ACTIVE_PORTAL
 } from '../actions/actionTypes'
 import {
   getZapProperties,
@@ -10,8 +11,8 @@ import {
 import { PROPERTIES_PER_PAGE, PORTALS } from '../variables'
 
 export const initialState = {
-  zapProperties: [],
-  vivaProperties: [],
+  [PORTALS.ZAP]: [],
+  [PORTALS.VIVA_REAL]: [],
   activePortal: PORTALS.ZAP,
   activeProperties: [],
   activeProperty: {},
@@ -28,22 +29,26 @@ export default (state = initialState, action) => {
         isLoading: true
       }
     case GET_PROPERTIES_SUCCESS:
-      const vivaProperties = getVivaProperties(action.payload);
       const zapProperties = getZapProperties(action.payload);
-      const activeProperties = zapProperties.splice(0, PROPERTIES_PER_PAGE);
       return {
         ...state,
         activePortals: PORTALS.ZAP,
-        activeProperties,
+        activeProperties: zapProperties.splice(0, PROPERTIES_PER_PAGE),
         isLoading: false,
-        vivaProperties,
-        zapProperties
+        [PORTALS.ZAP]: zapProperties,
+        [PORTALS.VIVA_REAL]: getVivaProperties(action.payload)
       }
     case GET_PROPERTIES_FAILURE:
       return {
         ...state,
         isLoading: false,
         errorMessage: action.payload
+      }
+    case CHANGE_ACTIVE_PORTAL:
+      return {
+        ...state,
+        activePortal: action.payload,
+        activeProperties: state[action.payload].splice(0, PROPERTIES_PER_PAGE)
       }
     default:
       return state;

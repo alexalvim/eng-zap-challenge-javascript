@@ -1,7 +1,7 @@
 import { PORTALS } from './variables';
 
 export default {
-  darkerColor: '#000',
+  darkerColor: '#444',
   lighterColor: '#FFF',
   portalMainColor: {
     [PORTALS.ZAP]: '#FF5A00',
