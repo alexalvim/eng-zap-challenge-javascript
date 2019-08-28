@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Header from '../../Components/Header';
 import {
   getPropertiesRequest
-} from './actions/properties';
+} from '../../actions/properties';
 
-export class App extends React.Component {
+export class PropertiesList extends React.Component {
   componentDidMount() {
     const { properties, getPropertiesRequest } = this.props;
     if (properties.activeProperties.length === 0) {
@@ -15,9 +16,15 @@ export class App extends React.Component {
   }
 
   render() {
+    const { properties } = this.props;
+    console.log(properties)
     return (
       <div>
-        App
+        <Header
+          activePortal={properties.activePortal}/>
+        {properties.activeProperties.map((property) => 
+          <div key={property.id}>Imóvel</div>
+        )}
       </div>
     );
   }
@@ -30,4 +37,4 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ getPropertiesRequest }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(PropertiesList);

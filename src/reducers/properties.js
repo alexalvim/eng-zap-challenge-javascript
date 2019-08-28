@@ -7,12 +7,12 @@ import {
   getZapProperties,
   getVivaProperties
 } from '../helpers';
-import { PROPERTIES_PER_PAGE, GROUPS } from '../variables'
+import { PROPERTIES_PER_PAGE, PORTALS } from '../variables'
 
 export const initialState = {
   zapProperties: [],
   vivaProperties: [],
-  activeGroup: GROUPS.ZAP,
+  activePortal: PORTALS.ZAP,
   activeProperties: [],
   activeProperty: {},
   listedPropertiePage: 1,
@@ -30,10 +30,10 @@ export default (state = initialState, action) => {
     case GET_PROPERTIES_SUCCESS:
       const vivaProperties = getVivaProperties(action.payload);
       const zapProperties = getZapProperties(action.payload);
-      const activeProperties = zapProperties;
+      const activeProperties = zapProperties.splice(0, PROPERTIES_PER_PAGE);
       return {
         ...state,
-        activeGroup: GROUPS.ZAP,
+        activePortals: PORTALS.ZAP,
         activeProperties,
         isLoading: false,
         vivaProperties,

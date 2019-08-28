@@ -1,6 +1,6 @@
 export const PROPERTIES_PER_PAGE = 20;
 
-export const GROUPS = {
-  VIVA_REAL: 'Viva Real',
+export const PORTALS = {
+  VIVA_REAL: 'VivaReal',
   ZAP: 'Zap',
 }
