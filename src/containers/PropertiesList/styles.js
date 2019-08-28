@@ -20,4 +20,9 @@ export const TitleWrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
+  margin-bottom: ${Spaces.double};
+`;
+
+export const PropertiesCardsList = styled.ul`
+  list-style: none;
 `;

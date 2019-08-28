@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import Header from '../../Components/Header';
 import TextButton from '../../Components/TextButton';
+import CarouselBox from '../../Components/CarouselBox';
 import { PORTALS } from '../../variables';
 import {
   getPropertiesRequest,
@@ -12,7 +13,8 @@ import {
 import {
   Container,
   Title,
-  TitleWrapper
+  TitleWrapper,
+  PropertiesCardsList
 } from './styles';
 
 export class PropertiesList extends React.Component {
@@ -31,6 +33,7 @@ export class PropertiesList extends React.Component {
   render() {
     const { properties } = this.props;
     const { handleClickChangePortal } = this;
+    console.log(properties)
     return (
       <Fragment>
         <Header
@@ -49,9 +52,18 @@ export class PropertiesList extends React.Component {
                 activePortal={properties.activePortal}
                 label={'Ir para o Viva Real'}/>}
           </TitleWrapper>
-          {properties.activeProperties.map((property) => 
-            <div key={property.id}>Imóvel {property.id}</div>
-          )}
+          <PropertiesCardsList>
+            {properties.activeProperties.map((property) => 
+              <li key={property.id}>
+                <CarouselBox
+                  title={`Imóvel para ${property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}`}
+                  activePortal={properties.activePortal}
+                  images={property.images}>
+                  {property.id}
+                </CarouselBox>
+              </li>
+            )}
+          </PropertiesCardsList>
         </Container>
       </Fragment>
     );

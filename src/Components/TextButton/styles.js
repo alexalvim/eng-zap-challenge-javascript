@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import Colors from '../../colors';
-import Spaces from '../../spaces';
 import Typo from '../../typo';
 
 export const Button = styled.button`
@@ -17,4 +16,5 @@ export const Button = styled.button`
   }
 
   ${({activePortal}) => activePortal && `color: ${Colors.portalMainColor[activePortal]};`}
+  ${({styles}) => styles}
 `;

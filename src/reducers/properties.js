@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         activePortals: PORTALS.ZAP,
-        activeProperties: zapProperties.splice(0, PROPERTIES_PER_PAGE),
+        activeProperties: zapProperties.slice(0, PROPERTIES_PER_PAGE),
         isLoading: false,
         [PORTALS.ZAP]: zapProperties,
         [PORTALS.VIVA_REAL]: getVivaProperties(action.payload)
@@ -48,7 +48,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         activePortal: action.payload,
-        activeProperties: state[action.payload].splice(0, PROPERTIES_PER_PAGE)
+        activeProperties: state[action.payload].slice(0, PROPERTIES_PER_PAGE)
       }
     default:
       return state;
