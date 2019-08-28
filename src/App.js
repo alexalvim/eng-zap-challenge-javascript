@@ -7,9 +7,14 @@ import {
 } from './actions/properties';
 
 export class App extends React.Component {
+  componentDidMount() {
+    const { properties, getPropertiesRequest } = this.props;
+    if (properties.activeProperties.length === 0) {
+      getPropertiesRequest();
+    }
+  }
+
   render() {
-    const { properties } = this.props;
-    console.log('>>>>>>>>>', properties); 
     return (
       <div>
         App

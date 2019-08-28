@@ -3,6 +3,10 @@ import {
   GET_PROPERTIES_SUCCESS,
   GET_PROPERTIES_FAILURE
 } from '../actions/actionTypes'
+import {
+  getZapProperties,
+  getVivaProperties
+} from '../helpers';
 import { PROPERTIES_PER_PAGE, GROUPS } from '../variables'
 
 export const initialState = {
@@ -10,7 +14,7 @@ export const initialState = {
   vivaProperties: [],
   activeGroup: GROUPS.ZAP,
   activeProperties: [],
-  activePropertie: {},
+  activeProperty: {},
   listedPropertiePage: 1,
   errorMessage: '',
   isLoading: false
@@ -24,9 +28,16 @@ export default (state = initialState, action) => {
         isLoading: true
       }
     case GET_PROPERTIES_SUCCESS:
+      const vivaProperties = getVivaProperties(action.payload);
+      const zapProperties = getZapProperties(action.payload);
+      const activeProperties = zapProperties;
       return {
         ...state,
-        isLoading: false
+        activeGroup: GROUPS.ZAP,
+        activeProperties,
+        isLoading: false,
+        vivaProperties,
+        zapProperties
       }
     case GET_PROPERTIES_FAILURE:
       return {

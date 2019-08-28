@@ -8,8 +8,9 @@ export const getPropertiesRequest = () => ({
    type: GET_PROPERTIES_REQUEST,
 });
 
-export const getPropertiesSuccess = () => ({
+export const getPropertiesSuccess = (payload) => ({
    type: GET_PROPERTIES_SUCCESS,
+   payload
 });
 
 export const getPropertiesFailure = (payload) => ({
