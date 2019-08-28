@@ -2,8 +2,10 @@ import styled from 'styled-components';
 
 import Spaces from '../../spaces';
 import Typo from '../../typo';
+import Colors from '../../colors';
 
 export const ContentWrapper = styled.div`
+  background-color: ${Colors.lighterColor};
   border-radius: 5px;
   box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
   display: flex;
@@ -65,9 +67,10 @@ export const ImageContainer = styled.div`
 `;
 
 export const TextHolder = styled.div`
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  padding: ${Spaces.base};
+  padding: ${Spaces.double};
 `;
 
 export const titleWrapperStyles = `

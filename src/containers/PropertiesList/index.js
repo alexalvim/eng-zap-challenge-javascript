@@ -1,20 +1,32 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {
+  FaBed,
+  FaShower,
+  FaCar,
+  FaRuler,
+  FaBuilding
+} from "react-icons/fa";
 
-import Header from '../../Components/Header';
-import TextButton from '../../Components/TextButton';
-import CarouselBox from '../../Components/CarouselBox';
+import Header from '../../components/Header';
+import TextButton from '../../components/TextButton';
+import CarouselBox from '../../components/CarouselBox';
+import IconItem from '../../components/IconItem';
 import { PORTALS } from '../../variables';
 import {
   getPropertiesRequest,
-  changeActivePortal
+  changeActivePortal,
+  seeMoreProperties
 } from '../../actions/properties';
 import {
+  ContentWrapper,
   Container,
   Title,
   TitleWrapper,
-  PropertiesCardsList
+  PropertiesCardsList,
+  PropertyInfosList,
+  ButtonHolder
 } from './styles';
 
 export class PropertiesList extends React.Component {
@@ -30,12 +42,17 @@ export class PropertiesList extends React.Component {
     changeActivePortal(portal);
   }
 
+  handleClickSeeMore = () => {
+    const { seeMoreProperties } = this.props;
+    seeMoreProperties();
+  }
+
   render() {
     const { properties } = this.props;
-    const { handleClickChangePortal } = this;
+    const { handleClickChangePortal, handleClickSeeMore } = this;
     console.log(properties)
     return (
-      <Fragment>
+      <ContentWrapper>
         <Header
           activePortal={properties.activePortal}/>
         <Container>
@@ -59,13 +76,51 @@ export class PropertiesList extends React.Component {
                   title={`Imóvel para ${property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}`}
                   activePortal={properties.activePortal}
                   images={property.images}>
-                  {property.id}
+                  <PropertyInfosList>
+                    <li>
+                      <IconItem
+                        activePortal={properties.activePortal}
+                        Icon={FaBed}
+                        label={`${property.bedrooms} Quartos`}/>
+                    </li>
+                    <li>
+                      <IconItem
+                        activePortal={properties.activePortal}
+                        Icon={FaShower}
+                        label={`${property.bathrooms} Banheiros`}/>
+                    </li>
+                    <li>
+                      <IconItem
+                        activePortal={properties.activePortal}
+                        Icon={FaCar}
+                        label={`${property.parkingSpaces} Vagas`}/>
+                    </li>
+                    <li>
+                      <IconItem
+                        activePortal={properties.activePortal}
+                        Icon={FaRuler}
+                        label={`Área útil: ${property.usableAreas} m²`}/>
+                    </li>
+                    {property.address.neighborhood &&
+                      <li>
+                        <IconItem
+                          activePortal={properties.activePortal}
+                          Icon={FaBuilding}
+                          label={property.address.neighborhood}/>
+                      </li>}
+                  </PropertyInfosList>
                 </CarouselBox>
               </li>
             )}
           </PropertiesCardsList>
+          <ButtonHolder>
+            <TextButton
+              onClick={handleClickSeeMore}
+              activePortal={properties.activePortal}
+              label={'Ver Mais'}/>
+          </ButtonHolder>
         </Container>
-      </Fragment>
+      </ContentWrapper>
     );
   }
 }
@@ -77,7 +132,8 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
     getPropertiesRequest,
-    changeActivePortal
+    changeActivePortal,
+    seeMoreProperties
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PropertiesList);

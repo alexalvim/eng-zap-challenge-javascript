@@ -4,6 +4,10 @@ import Colors from '../../colors';
 import Spaces from '../../spaces';
 import Typo from '../../typo';
 
+export const ContentWrapper = styled.div`
+  background-color: ${Colors.lightGray};
+`;
+
 export const Container = styled.div`
   margin: 0 auto;
   max-width: ${Spaces.containerMaxWidth};
@@ -21,6 +25,18 @@ export const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${Spaces.double};
+`;
+
+export const PropertyInfosList = styled.ul`
+  > li {
+    margin-bottom: ${Spaces.base};
+  }
+`;
+
+export const ButtonHolder = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
 
 export const PropertiesCardsList = styled.ul`

@@ -2,7 +2,8 @@ import {
   GET_PROPERTIES_REQUEST,
   GET_PROPERTIES_SUCCESS,
   GET_PROPERTIES_FAILURE,
-  CHANGE_ACTIVE_PORTAL
+  CHANGE_ACTIVE_PORTAL,
+  SEE_MORE_PROPERTIES
 } from '../actions/actionTypes'
 import {
   getZapProperties,
@@ -48,7 +49,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         activePortal: action.payload,
+        listedPropertiePage: 1,
         activeProperties: state[action.payload].slice(0, PROPERTIES_PER_PAGE)
+      }
+    case SEE_MORE_PROPERTIES:
+      const listedPropertiePage = state.listedPropertiePage + 1;
+      return {
+        ...state,
+        listedPropertiePage,
+        activeProperties: state[state.activePortal].slice(0, listedPropertiePage * PROPERTIES_PER_PAGE)
       }
     default:
       return state;

@@ -5,7 +5,6 @@ import Spaces from '../../spaces';
 
 export const ContentWrapper = styled.div`
   background-color: ${Colors.lighterColor};
-  color: ${Colors.lighterColor};
   width: 100%;
 
   ${({activePortal}) => activePortal && `border-bottom: solid 2px ${Colors.portalMainColor[activePortal]};`}
