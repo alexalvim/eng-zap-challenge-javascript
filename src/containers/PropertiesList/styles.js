@@ -6,9 +6,11 @@ import Typo from '../../typo';
 
 export const ContentWrapper = styled.div`
   background-color: ${Colors.lightGray};
+  height: 100%;
 `;
 
 export const Container = styled.div`
+  height: 100%;
   margin: 0 auto;
   max-width: ${Spaces.containerMaxWidth};
   padding: ${Spaces.double};
@@ -35,4 +37,14 @@ export const ButtonHolder = styled.div`
 
 export const PropertiesCardsList = styled.ul`
   list-style: none;
+`;
+
+export const SimpleText = styled.div`
+  color: ${Colors.darkerColor};
+  font-size: ${Typo.medium};
+  margin-top: ${Spaces.base};
+
+  @media(min-width: ${Spaces.tabletBreakpoint}){
+    margin-top: auto;
+  }
 `;

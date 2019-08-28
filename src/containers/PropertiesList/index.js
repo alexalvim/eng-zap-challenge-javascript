@@ -7,6 +7,7 @@ import TextButton from '../../components/TextButton';
 import CarouselBox from '../../components/CarouselBox';
 import PropertyInfoList from '../../components/PropertyInfoList'
 import { PORTALS } from '../../variables';
+import { formatCurrency } from '../../helpers';
 import {
   getPropertiesRequest,
   changeActivePortal,
@@ -18,7 +19,8 @@ import {
   Title,
   TitleWrapper,
   PropertiesCardsList,
-  ButtonHolder
+  ButtonHolder,
+  SimpleText
 } from './styles';
 
 export class PropertiesList extends React.Component {
@@ -71,6 +73,9 @@ export class PropertiesList extends React.Component {
                   <PropertyInfoList
                     property={property}
                     activePortal={properties.activePortal}/>
+                  <SimpleText>
+                    {formatCurrency(property.pricingInfos.price)}
+                  </SimpleText>
                 </CarouselBox>
               </li>
             )}

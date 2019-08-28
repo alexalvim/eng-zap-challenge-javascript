@@ -51,13 +51,15 @@ export const getVivaProperties = (properties) =>
               (!isNaN(Number.parseInt(property.pricingInfos.monthlyCondoFee)) &&
               Number.parseInt(property.pricingInfos.monthlyCondoFee) < 0.3 * property.pricingInfos.rentalTotalPrice))) {
           if (isBoudingBox(property.address.geoLocation.location)) {
+            const price = 1.5 * property.pricingInfos.price;
             return [
               ...acc,
               {
                 ...property,
                 pricingInfos: {
                   ...property.pricingInfos,
-                  rentalTotalPrice: 1.5 * property.pricingInfos.rentalTotalPrice
+                  price,
+                  rentalTotalPrice: price + property.pricingInfos.monthlyCondoFee
                 }
               }
             ]
@@ -78,3 +80,7 @@ export const validateGeolocation = (location) =>
 export const isBoudingBox = (location) => 
   location.lon > -46.693419 && location.lon < -46.641146 &&
   location.lat > -23.568704 && location.lat < -23.546686;
+
+export const formatCurrency = (value) => (
+  `R$ ${parseFloat(value).toFixed(2).toString().replace('.', ',')}`
+);
