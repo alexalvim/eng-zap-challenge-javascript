@@ -1,10 +1,12 @@
+import { BOUDING_BOX_NUMBERS } from './variables'
+
 export const getZapProperties = (properties) => 
   properties.reduce((acc, property) => {
     switch (property.pricingInfos.businessType) {
       case 'SALE':
         if (property.pricingInfos.price >= 600000 &&
             validateGeolocation(property.address.geoLocation.location) &&
-            (!property.usableAreas || property.usableAreas === 0 || property.pricingInfos.price / property.usableAreas > 3500)) {
+            (!property.usableAreas || parseFloat(property.usableAreas) === 0 || property.pricingInfos.price / property.usableAreas > 3500)) {
           if (isBoudingBox(property.address.geoLocation.location)) {
             return [
               ...acc,
@@ -38,7 +40,7 @@ export const getVivaProperties = (properties) =>
   properties.reduce((acc, property) => {
     switch (property.pricingInfos.businessType) {
       case 'SALE':
-        if (property.pricingInfos.price <= 7000000 &&
+        if (property.pricingInfos.price <= 700000 &&
             validateGeolocation(property.address.geoLocation.location)) {
           return [...acc, property]
         } else {
@@ -78,8 +80,8 @@ export const validateGeolocation = (location) =>
   location.lat !== 0 && location.lon !== 0;
   
 export const isBoudingBox = (location) => 
-  location.lon > -46.693419 && location.lon < -46.641146 &&
-  location.lat > -23.568704 && location.lat < -23.546686;
+  location.lon >= BOUDING_BOX_NUMBERS.MIN_LON && location.lon <= BOUDING_BOX_NUMBERS.MAX_LON &&
+  location.lat >= BOUDING_BOX_NUMBERS.MIN_LAT && location.lat <= BOUDING_BOX_NUMBERS.MAX_LAT;
 
 export const formatCurrency = (value) => (
   `R$ ${parseFloat(value).toFixed(2).toString().replace('.', ',').replace(/\d(?=(\d{3})+,)/g, '$&.')}`

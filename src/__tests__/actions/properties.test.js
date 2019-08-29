@@ -16,7 +16,7 @@ import {
   SELECT_ACTIVE_PROPERTY
 } from '../../actions/actionTypes';
 
-describe('Properties actions', () => {
+describe('Test properties actions', () => {
   it('should create an action to change active portal', () => {
     const payload = 'zap'
     const expectedAction = {
