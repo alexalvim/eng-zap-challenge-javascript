@@ -7,7 +7,8 @@ import PropertyInfoList from '../PropertyInfoList';
 import {
   TextWrapper,
   Title,
-  Price
+  Price,
+  PriceContainer
 } from './styles'
 
 export default ({ isOpen, closeModal, property, activePortal }) => (
@@ -23,10 +24,13 @@ export default ({ isOpen, closeModal, property, activePortal }) => (
         <Title activePortal={activePortal}>
           Imóvel para {property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}
         </Title>
+        <PriceContainer>
+          {property.pricingInfos.monthlyCondoFee && <Price>Condomínio: {formatCurrency(property.pricingInfos.monthlyCondoFee)}</Price>}
+          <Price>Valor: {formatCurrency(property.pricingInfos.price)}</Price>
+        </PriceContainer>
         <PropertyInfoList
           property={property}
           activePortal={activePortal}/>
-        <Price>Valor: {formatCurrency(property.pricingInfos.price)}</Price>
       </TextWrapper>
     </BaseModal>:<Fragment/>
 );

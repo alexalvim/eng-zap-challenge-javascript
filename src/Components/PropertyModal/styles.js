@@ -17,7 +17,13 @@ export const Title = styled.h2`
 
 export const Price = styled.span`
   color: ${Colors.darkerColor};
-  display: inline-block;
+  display: block;
   font-size: ${Typo.medium};
-  margin-top: ${Spaces.double};
+  margin-top: ${Spaces.base};
+`;
+
+export const PriceContainer = styled.div`
+  border-bottom: solid 1px ${Colors.mediumGray};
+  margin-bottom: ${Spaces.double};
+  padding: 0 0 ${Spaces.double}
 `;

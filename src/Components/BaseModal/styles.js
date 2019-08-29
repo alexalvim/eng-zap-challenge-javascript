@@ -20,6 +20,7 @@ export const ModalContent = styled.div`
   background-color: ${Colors.lighterColor};
   border-radius: 5px;
   height: 100%;
+  overflow: auto;
   position: relative;
   width: 100%;
 
