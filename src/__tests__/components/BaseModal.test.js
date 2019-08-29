@@ -36,4 +36,15 @@ describe('Testing BaseModal', () => {
     wrapper.find(CloseButton).simulate('click');
     expect(mockFunction).toHaveBeenCalled();
   });
+
+  it('should show the passed children', () => {
+    const wrapper = shallow(
+      <BaseModal
+        isOpen={true}>
+        <div id='test'></div>
+      </BaseModal>
+    );
+
+    expect(wrapper.find('#test')).toHaveLength(1);
+  });
 });
