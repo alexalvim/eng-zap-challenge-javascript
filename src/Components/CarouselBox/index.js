@@ -2,10 +2,10 @@ import React from 'react';
 import Slider from 'react-slick';
 
 import TextButton from '../TextButton';
+import CustomCarousel from '../CustomCarousel'
 import {
   ContentWrapper,
-  CarouselContainer,
-  ImageContainer,
+  CarouselWrapper,
   TextHolder,
   titleWrapperStyles
 } from './styles'
@@ -19,15 +19,12 @@ export default ({ images, activePortal, title, onClick, children }) => {
   };
   return (
   <ContentWrapper>
-    <CarouselContainer>
-      <Slider {...settings}>
-        {images.map((image, i) => (
-          <ImageContainer key={i}>
-            <img src={image} alt='Imagem do Imóvel'/>
-          </ImageContainer>
-        ))}
-      </Slider>
-    </CarouselContainer>
+    <CarouselWrapper>
+      <CustomCarousel
+        alt='Imagem do Imóvel'
+        images={images}
+        height={300}/>
+    </CarouselWrapper>
     <TextHolder>
       <TextButton
         onClick={onClick}

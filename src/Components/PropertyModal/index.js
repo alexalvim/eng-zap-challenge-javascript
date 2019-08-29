@@ -15,7 +15,10 @@ export default ({ isOpen, closeModal, property, activePortal }) => (
     <BaseModal
       isOpen={isOpen}
       closeModal={closeModal}>
-      <CustomCarousel images={property.images} height={300}/>
+      <CustomCarousel
+        alt='Imagem do Imóvel'
+        images={property.images}
+        height={300}/>
       <TextWrapper>
         <Title activePortal={activePortal}>
           Imóvel para {property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}
