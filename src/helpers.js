@@ -82,5 +82,5 @@ export const isBoudingBox = (location) =>
   location.lat > -23.568704 && location.lat < -23.546686;
 
 export const formatCurrency = (value) => (
-  `R$ ${parseFloat(value).toFixed(2).toString().replace('.', ',').replace(/\d(?=(\d{3})+\,)/g, '$&.')}`
+  `R$ ${parseFloat(value).toFixed(2).toString().replace('.', ',').replace(/\d(?=(\d{3})+,)/g, '$&.')}`
 );
