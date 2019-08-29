@@ -16,19 +16,19 @@ export default ({ property, activePortal }) => (
       <IconItem
         activePortal={activePortal}
         Icon={FaBed}
-        label={`${property.bedrooms} Quartos`}/>
+        label={`Quartos: ${property.bedrooms}`}/>
     </li>
     <li>
       <IconItem
         activePortal={activePortal}
         Icon={FaShower}
-        label={`${property.bathrooms} Banheiros`}/>
+        label={`Banheiros: ${property.bathrooms}`}/>
     </li>
     <li>
       <IconItem
         activePortal={activePortal}
         Icon={FaCar}
-        label={`${property.parkingSpaces} Vagas`}/>
+        label={`Vagas: ${property.parkingSpaces}`}/>
     </li>
     <li>
       <IconItem
@@ -41,7 +41,7 @@ export default ({ property, activePortal }) => (
         <IconItem
           activePortal={activePortal}
           Icon={FaBuilding}
-          label={property.address.neighborhood}/>
+          label={`Bairro: ${property.address.neighborhood}`}/>
       </li>}
   </List>
 )

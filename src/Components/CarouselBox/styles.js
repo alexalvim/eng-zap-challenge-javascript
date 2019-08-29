@@ -10,26 +10,19 @@ export const ContentWrapper = styled.div`
   box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
-  margin: ${Spaces.double} 0;
+  height: 100%;
   overflow: hidden;
-
-  @media(min-width: ${Spaces.tabletBreakpoint}){
-    flex-direction: row;
-  }
 `;
 
 export const CarouselWrapper = styled.div`
   width: 100%;
-
-  @media(min-width: ${Spaces.tabletBreakpoint}){
-    max-width: 350px;
-  }
 `;
 
 export const TextHolder = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  height: 100%;
   padding: ${Spaces.double};
 `;
 

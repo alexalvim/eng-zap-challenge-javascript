@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {
+  FaBed,
+  FaShower,
+  FaCar,
+} from "react-icons/fa";
 
 import Header from '../../components/Header';
 import TextButton from '../../components/TextButton';
 import CarouselBox from '../../components/CarouselBox';
-import PropertyInfoList from '../../components/PropertyInfoList';
+import IconItem from '../../components/IconItem';
 import PropertyModal from '../../components/PropertyModal';
 import { PORTALS } from '../../variables';
 import { formatCurrency } from '../../helpers';
@@ -22,7 +27,8 @@ import {
   TitleWrapper,
   PropertiesCardsList,
   ButtonHolder,
-  SimpleText
+  SimpleText,
+  HorizontalList
 } from './styles';
 
 export class PropertiesList extends React.Component {
@@ -102,9 +108,26 @@ export class PropertiesList extends React.Component {
                   title={`Imóvel para ${property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}`}
                   activePortal={properties.activePortal}
                   images={property.images}>
-                  <PropertyInfoList
-                    property={property}
-                    activePortal={properties.activePortal}/>
+                  <HorizontalList>
+                    <li>
+                      <IconItem
+                        activePortal={properties.activePortal}
+                        Icon={FaBed}
+                        label={`Quartos: ${property.bedrooms}`}/>
+                    </li>
+                    <li>
+                      <IconItem
+                        activePortal={properties.activePortal}
+                        Icon={FaShower}
+                        label={`Banheiros: ${property.bathrooms}`}/>
+                    </li>
+                    <li>
+                      <IconItem
+                        activePortal={properties.activePortal}
+                        Icon={FaCar}
+                        label={`Vagas: ${property.parkingSpaces}`}/>
+                    </li>
+                  </HorizontalList>
                   <SimpleText>
                     Valor: {formatCurrency(property.pricingInfos.price)}
                   </SimpleText>
