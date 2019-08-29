@@ -6,7 +6,7 @@ import Typo from '../../typo';
 
 export const ContentWrapper = styled.div`
   background-color: ${Colors.lightGray};
-  height: 100%;
+  min-height: 100%;
 `;
 
 export const Container = styled.div`

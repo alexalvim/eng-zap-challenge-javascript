@@ -3,7 +3,8 @@ import {
   GET_PROPERTIES_SUCCESS,
   GET_PROPERTIES_FAILURE,
   CHANGE_ACTIVE_PORTAL,
-  SEE_MORE_PROPERTIES
+  SEE_MORE_PROPERTIES,
+  SELECT_ACTIVE_PROPERTY
 } from './actionTypes';
 
 export const getPropertiesRequest = () => ({
@@ -28,3 +29,8 @@ export const changeActivePortal = (payload) => ({
 export const seeMoreProperties = () => ({
    type: SEE_MORE_PROPERTIES
 });
+
+export const selectActiveProperty = (payload) =>({
+   type: SELECT_ACTIVE_PROPERTY,
+   payload
+})

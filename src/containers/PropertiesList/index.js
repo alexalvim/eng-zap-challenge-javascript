@@ -5,13 +5,15 @@ import { bindActionCreators } from 'redux';
 import Header from '../../components/Header';
 import TextButton from '../../components/TextButton';
 import CarouselBox from '../../components/CarouselBox';
-import PropertyInfoList from '../../components/PropertyInfoList'
+import PropertyInfoList from '../../components/PropertyInfoList';
+import PropertyModal from '../../components/PropertyModal';
 import { PORTALS } from '../../variables';
 import { formatCurrency } from '../../helpers';
 import {
   getPropertiesRequest,
   changeActivePortal,
-  seeMoreProperties
+  seeMoreProperties,
+  selectActiveProperty
 } from '../../actions/properties';
 import {
   ContentWrapper,
@@ -24,6 +26,13 @@ import {
 } from './styles';
 
 export class PropertiesList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openPropertyModal: false,
+    }
+  }
+
   componentDidMount() {
     const { properties, getPropertiesRequest } = this.props;
     if (properties.activeProperties.length === 0) {
@@ -41,9 +50,31 @@ export class PropertiesList extends React.Component {
     seeMoreProperties();
   }
 
+  handleClickProperty = (property) => {
+    const { selectActiveProperty } = this.props
+    selectActiveProperty(property)
+    this.setState({
+      openPropertyModal: true,
+    });
+  }
+
+  handleClosePropertyModal = () => {
+    const { selectActiveProperty } = this.props
+    selectActiveProperty({})
+    this.setState({
+      openPropertyModal: false,
+    });
+  }
+
   render() {
     const { properties } = this.props;
-    const { handleClickChangePortal, handleClickSeeMore } = this;
+    const { openPropertyModal } = this.state;
+    const {
+      handleClickChangePortal,
+      handleClickSeeMore,
+      handleClickProperty,
+      handleClosePropertyModal
+    } = this;
     console.log(properties)
     return (
       <ContentWrapper>
@@ -67,6 +98,7 @@ export class PropertiesList extends React.Component {
             {properties.activeProperties.map((property) => 
               <li key={property.id}>
                 <CarouselBox
+                  onClick={() => handleClickProperty(property)}
                   title={`Imóvel para ${property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}`}
                   activePortal={properties.activePortal}
                   images={property.images}>
@@ -74,7 +106,7 @@ export class PropertiesList extends React.Component {
                     property={property}
                     activePortal={properties.activePortal}/>
                   <SimpleText>
-                    {formatCurrency(property.pricingInfos.price)}
+                    Valor: {formatCurrency(property.pricingInfos.price)}
                   </SimpleText>
                 </CarouselBox>
               </li>
@@ -87,6 +119,11 @@ export class PropertiesList extends React.Component {
               label={'Ver Mais'}/>
           </ButtonHolder>
         </Container>
+        <PropertyModal
+          activePortal={properties.activePortal}
+          closeModal={handleClosePropertyModal}
+          property={properties.activeProperty}
+          isOpen={openPropertyModal}/>
       </ContentWrapper>
     );
   }
@@ -100,7 +137,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({
     getPropertiesRequest,
     changeActivePortal,
-    seeMoreProperties
+    seeMoreProperties,
+    selectActiveProperty
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PropertiesList);

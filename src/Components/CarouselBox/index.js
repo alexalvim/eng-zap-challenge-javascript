@@ -10,7 +10,7 @@ import {
   titleWrapperStyles
 } from './styles'
 
-export default ({ images, activePortal, title, children }) => {
+export default ({ images, activePortal, title, onClick, children }) => {
   const settings = {
     infinite: false,
     speed: 500,
@@ -30,6 +30,7 @@ export default ({ images, activePortal, title, children }) => {
     </CarouselContainer>
     <TextHolder>
       <TextButton
+        onClick={onClick}
         wrapperStyles={titleWrapperStyles}
         activePortal={activePortal}
         label={title}/>
