@@ -2,11 +2,24 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { PropertiesList } from '../../containers/PropertiesList';
-import { SimpleText } from '../../containers/PropertiesList/styles';
+import { SimpleText, ButtonHolder } from '../../containers/PropertiesList/styles';
+import { PORTALS } from '../../variables';
 
 const mockedProperties = {
   errorMessage: '',
   isLoading: false,
+  [PORTALS.ZAP]: [{
+    id: 1,
+    pricingInfos: {
+      businessType: 'SALE'
+    }
+  },{
+    id: 2,
+    pricingInfos: {
+      businessType: 'SALE'
+    }
+  }],
+  activePortal: PORTALS.ZAP,
   activeProperties: [{
     id: 1,
     pricingInfos: {
@@ -41,6 +54,36 @@ describe('Testing PropertiesList', () => {
     );
 
     expect(wrapper.find(SimpleText).text()).toEqual('Carregando ...');
+  });
+
+  it('should show see more button when portal properties is bigger than active properties', () => {
+    const wrapper = shallow(
+      <PropertiesList
+        properties={mockedProperties}/>
+    );
+
+    expect(wrapper.find(ButtonHolder)).toHaveLength(1);
+  });
+
+  it('should show see more button when portal properties is equal than active properties', () => {
+    const wrapper = shallow(
+      <PropertiesList
+        properties={{
+          ...mockedProperties,
+          activeProperties: [{
+            id: 1,
+            pricingInfos: {
+              businessType: 'SALE'
+            }
+          },{
+            id: 2,
+            pricingInfos: {
+              businessType: 'SALE'
+            }
+          }]}}/>
+    );
+
+    expect(wrapper.find(ButtonHolder)).toHaveLength(0);
   });
 
   it('should call getPropertiesRequest when call componentDidMount', () => {

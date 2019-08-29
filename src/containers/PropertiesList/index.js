@@ -143,12 +143,13 @@ export class PropertiesList extends React.Component {
                     </li>
                   )}
                 </PropertiesCardsList>
-                <ButtonHolder>
-                  <TextButton
-                    onClick={handleClickSeeMore}
-                    activePortal={properties.activePortal}
-                    label={'Ver Mais'}/>
-                </ButtonHolder>
+                {properties.activeProperties.length < properties[properties.activePortal].length &&
+                  <ButtonHolder>
+                    <TextButton
+                      onClick={handleClickSeeMore}
+                      activePortal={properties.activePortal}
+                      label={'Ver Mais'}/>
+                  </ButtonHolder>}
               </Fragment>}
         </Container>
         <PropertyModal
