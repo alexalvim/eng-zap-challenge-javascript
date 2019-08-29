@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -81,66 +81,75 @@ export class PropertiesList extends React.Component {
       handleClickProperty,
       handleClosePropertyModal
     } = this;
-    console.log(properties)
     return (
       <ContentWrapper>
         <Header
           activePortal={properties.activePortal}/>
         <Container>
-          <TitleWrapper>
-            <Title>Lista de imóveis</Title>
-            {properties.activePortal !== PORTALS.ZAP &&
-              <TextButton
-                onClick={() => handleClickChangePortal(PORTALS.ZAP)}
-                activePortal={properties.activePortal}
-                label={'Ir para o Zap'}/>}
-            {properties.activePortal !== PORTALS.VIVA_REAL &&
-              <TextButton
-                onClick={() => handleClickChangePortal(PORTALS.VIVA_REAL)}
-                activePortal={properties.activePortal}
-                label={'Ir para o Viva Real'}/>}
-          </TitleWrapper>
-          <PropertiesCardsList>
-            {properties.activeProperties.map((property) => 
-              <li key={property.id}>
-                <CarouselBox
-                  onClick={() => handleClickProperty(property)}
-                  title={`Imóvel para ${property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}`}
-                  activePortal={properties.activePortal}
-                  images={property.images}>
-                  <HorizontalList>
-                    <li>
-                      <IconItem
+          {properties.errorMessage !== '' ?
+            <SimpleText>
+              Erro: {properties.errorMessage}
+            </SimpleText> :
+            properties.isLoading ?
+              <SimpleText>
+                Carregando ...
+              </SimpleText> :
+              <Fragment>
+                <TitleWrapper>
+                  <Title>Lista de imóveis</Title>
+                  {properties.activePortal !== PORTALS.ZAP &&
+                    <TextButton
+                      onClick={() => handleClickChangePortal(PORTALS.ZAP)}
+                      activePortal={properties.activePortal}
+                      label={'Ir para o Zap'}/>}
+                  {properties.activePortal !== PORTALS.VIVA_REAL &&
+                    <TextButton
+                      onClick={() => handleClickChangePortal(PORTALS.VIVA_REAL)}
+                      activePortal={properties.activePortal}
+                      label={'Ir para o Viva Real'}/>}
+                </TitleWrapper>
+                <PropertiesCardsList>
+                  {properties.activeProperties.map((property) => 
+                    <li key={property.id}>
+                      <CarouselBox
+                        onClick={() => handleClickProperty(property)}
+                        title={`Imóvel para ${property.pricingInfos.businessType === 'RENTAL' ? 'Aluguel' : 'Venda'}`}
                         activePortal={properties.activePortal}
-                        Icon={FaBed}
-                        label={`Quartos: ${property.bedrooms}`}/>
+                        images={property.images}>
+                        <HorizontalList>
+                          <li>
+                            <IconItem
+                              activePortal={properties.activePortal}
+                              Icon={FaBed}
+                              label={`Quartos: ${property.bedrooms}`}/>
+                          </li>
+                          <li>
+                            <IconItem
+                              activePortal={properties.activePortal}
+                              Icon={FaShower}
+                              label={`Banheiros: ${property.bathrooms}`}/>
+                          </li>
+                          <li>
+                            <IconItem
+                              activePortal={properties.activePortal}
+                              Icon={FaCar}
+                              label={`Vagas: ${property.parkingSpaces}`}/>
+                          </li>
+                        </HorizontalList>
+                        <SimpleText>
+                          Valor: {formatCurrency(property.pricingInfos.price)}
+                        </SimpleText>
+                      </CarouselBox>
                     </li>
-                    <li>
-                      <IconItem
-                        activePortal={properties.activePortal}
-                        Icon={FaShower}
-                        label={`Banheiros: ${property.bathrooms}`}/>
-                    </li>
-                    <li>
-                      <IconItem
-                        activePortal={properties.activePortal}
-                        Icon={FaCar}
-                        label={`Vagas: ${property.parkingSpaces}`}/>
-                    </li>
-                  </HorizontalList>
-                  <SimpleText>
-                    Valor: {formatCurrency(property.pricingInfos.price)}
-                  </SimpleText>
-                </CarouselBox>
-              </li>
-            )}
-          </PropertiesCardsList>
-          <ButtonHolder>
-            <TextButton
-              onClick={handleClickSeeMore}
-              activePortal={properties.activePortal}
-              label={'Ver Mais'}/>
-          </ButtonHolder>
+                  )}
+                </PropertiesCardsList>
+                <ButtonHolder>
+                  <TextButton
+                    onClick={handleClickSeeMore}
+                    activePortal={properties.activePortal}
+                    label={'Ver Mais'}/>
+                </ButtonHolder>
+              </Fragment>}
         </Container>
         <PropertyModal
           activePortal={properties.activePortal}
